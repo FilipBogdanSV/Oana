@@ -11,18 +11,19 @@ public class DatabaseOperations {
     public DatabaseOperations(Connection databaseConnection, String databaseName) {
         try {
             statement = databaseConnection.createStatement();
-            statement.executeQuery("use " + databaseName);
+            statement.executeQuery("use `" + databaseName + '`');
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public void createDatabase(String databaseName) throws SQLException {
-        statement.executeQuery("CREATE DATABASE " + databaseName);
+    public static void createDatabase(String databaseName, Connection connection) throws SQLException {
+        Statement statementToCreateDatabase = connection.createStatement();
+        statementToCreateDatabase.executeQuery("CREATE DATABASE " + databaseName);
     }
 
     public void createTable() throws SQLException {
-        statement.executeQuery("CREATE TABLE Users (\n" +
+        statement.executeUpdate("CREATE TABLE Users (\n" +
                 "id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,\n" +
                 "username VARCHAR(30) NOT NULL,\n" +
                 "password VARCHAR(30) NOT NULL,\n" +
@@ -36,6 +37,6 @@ public class DatabaseOperations {
     }
 
     public void addNewRegistration(String username, String password, String email, String tableName) throws SQLException {
-        statement.executeQuery(String.format("INSERT INTO " + tableName + " values (%s, %s, %s)", username, password, email));
+        statement.executeUpdate(String.format("INSERT INTO " + tableName+ "(username, password, email)"+ " values ('%s', '%s', '%s')", username, password, email));
     }
 }

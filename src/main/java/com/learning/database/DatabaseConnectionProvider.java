@@ -5,8 +5,17 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DatabaseConnectionProvider {
-    public Connection getConnectionToDatabase(String host, String username, String password) throws ClassNotFoundException, SQLException {
-        Class.forName("com.mysql.jdbc.Driver");
-        return DriverManager.getConnection(host, username, password);
+    public Connection getConnectionToDatabase(String host, String username, String password) {
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        try {
+            return DriverManager.getConnection(host, username, password);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

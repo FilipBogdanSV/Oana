@@ -1,6 +1,6 @@
 package com.learning.demo.model;
 
-public class RequestEntity {
+public class LoginRequestEntity {
     private String username;
     private String password;
 
