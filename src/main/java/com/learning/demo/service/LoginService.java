@@ -8,6 +8,8 @@ import org.springframework.stereotype.Component;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import static com.learning.database.DatabaseOperations.getDatabaseService;
+
 @Component
 public class LoginService {
 
@@ -27,10 +29,5 @@ public class LoginService {
         }
 
         return loginRequestEntity.getPassword().equals(password) && loginRequestEntity.getUsername().equals(username);
-    }
-
-    private DatabaseOperations getDatabaseService() {
-        return new DatabaseOperations(new DatabaseConnectionProvider()
-                .getConnectionToDatabase("jdbc:mysql://85.204.241.125:3306", "sinfl-filip-bogdan", "98rbmn"), "sinfl-filip-bogdan");
     }
 }

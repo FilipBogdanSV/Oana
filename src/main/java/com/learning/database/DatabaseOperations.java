@@ -8,13 +8,18 @@ import java.sql.Statement;
 public class DatabaseOperations {
     private Statement statement;
 
-    public DatabaseOperations(Connection databaseConnection, String databaseName) {
+    private DatabaseOperations(Connection databaseConnection, String databaseName) {
         try {
             statement = databaseConnection.createStatement();
             statement.executeQuery("use `" + databaseName + '`');
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public static DatabaseOperations getDatabaseService() {
+        return new DatabaseOperations(new DatabaseConnectionProvider()
+                .getConnectionToDatabase("jdbc:mysql://85.204.241.125:3306", "sinfl-filip-bogdan", "98rbmn"), "sinfl-filip-bogdan");
     }
 
     public static void createDatabase(String databaseName, Connection connection) throws SQLException {
