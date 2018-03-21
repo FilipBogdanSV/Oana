@@ -14,6 +14,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 import static com.learning.demo.Controller.utils.ServerUtils.*;
 
 @RestController
@@ -54,18 +56,17 @@ public class DemoAppController {
 
     @CrossOrigin
     @RequestMapping(value = "/sendMessage", method = RequestMethod.POST, consumes = {"application/JSON"})
-    public ResponseEntity<Object> sendMessage(@RequestBody MessageRequestEntity messageRequestEntity,
+    public ResponseEntity<Object> sendMessage(@RequestBody Message message,
                                               @RequestHeader("Authorization") String authorization) {
-        messageService.messageNeedsToBeSent(authorization, messageRequestEntity);
+        messageService.saveMessageToDb(authorization, message);
 
         return ResponseEntity.accepted().body(null);
     }
 
-    @Autowired
-    private MessageRepository messageRepository;
-
-    @RequestMapping(value = "/test")
-    public String test() {
-        return messageRepository.findOneByToName("Otto").toString();
+    @CrossOrigin
+    @RequestMapping(value = "/getMessages")
+    public List<Message> returnMyMessages(@RequestHeader("Authorization") String authorization) {
+        return messageService.checkForMessages(authorization);
     }
+
 }

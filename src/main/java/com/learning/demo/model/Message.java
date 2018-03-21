@@ -6,29 +6,37 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "messages")
 public class Message {
     @Id
     @GeneratedValue
     private Long id;
-    private String fromName;
-    private String toName;
+    private String sender;
+    private String receiver;
     private String body;
+    private Boolean consumed;
 
-    public String getFrom() {
-        return fromName;
+    public Boolean getConsumed() {
+        return consumed;
     }
 
-    public void setFrom(String from) {
-        this.fromName = from;
+    public void setConsumed(Boolean consumed) {
+        this.consumed = consumed;
     }
 
-    public String getTo() {
-        return toName;
+    public String getSender() {
+        return sender;
     }
 
-    public void setTo(String to) {
-        this.toName = to;
+    public void setSender(String sender) {
+        this.sender = sender;
+    }
+
+    public String getReceiver() {
+        return receiver;
+    }
+
+    public void setReceiver(String receiver) {
+        this.receiver = receiver;
     }
 
     public String getBody() {
@@ -51,8 +59,8 @@ public class Message {
     public String toString() {
         return "Message{" +
                 "id=" + id +
-                ", fromName='" + fromName + '\'' +
-                ", toName='" + toName + '\'' +
+                ", sender='" + sender + '\'' +
+                ", receiver='" + receiver + '\'' +
                 ", body='" + body + '\'' +
                 '}';
     }

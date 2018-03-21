@@ -6,5 +6,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface MessageRepository extends CrudRepository<Message, Long> {
-    Message findOneByToName(String toName);
+    public Message findOneMessageByReceiver(String receiver);
+
+
 }
