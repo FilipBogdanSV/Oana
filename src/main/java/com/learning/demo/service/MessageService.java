@@ -26,13 +26,12 @@ public class MessageService {
         List<Message> unreadMessages = new ArrayList<>();
         messageRepository.findAll().forEach(message -> {
             if (message.getReceiver().equals(StringUtils.substringBefore(authorization, ":"))) {
-                if(!message.getConsumed())
-                {
+                if (!message.getConsumed()) {
                     unreadMessages.add(message);
+                    message.setConsumed(true);
+                    messageRepository.save(message);
                 }
-
             }
-
         });
         return unreadMessages.size() > 0 ? unreadMessages : null;
     }

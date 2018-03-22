@@ -3,10 +3,8 @@ package com.learning.demo.Controller;
 import com.learning.demo.Controller.utils.ServerUtils;
 import com.learning.demo.model.LoginRequestEntity;
 import com.learning.demo.model.Message;
-import com.learning.demo.model.MessageRequestEntity;
 import com.learning.demo.model.RegisterRequestEntity;
 import com.learning.demo.service.LoginService;
-import com.learning.demo.service.MessageRepository;
 import com.learning.demo.service.MessageService;
 import com.learning.demo.service.RegisterService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +37,7 @@ public class DemoAppController {
             String token = ServerUtils.encodeToBase64(loginRequestEntity.getUsername() + TWO_POINTS + loginRequestEntity.getPassword());
             return ResponseEntity.ok(token);
         } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("");
         }
     }
 
@@ -50,7 +48,7 @@ public class DemoAppController {
         if (success) {
             return ResponseEntity.ok("Succesfully registered");
         } else {
-            return ResponseEntity.badRequest().body(null);
+            return ResponseEntity.badRequest().body("");
         }
     }
 
@@ -60,7 +58,7 @@ public class DemoAppController {
                                               @RequestHeader("Authorization") String authorization) {
         messageService.saveMessageToDb(authorization, message);
 
-        return ResponseEntity.accepted().body(null);
+        return ResponseEntity.accepted().body("");
     }
 
     @CrossOrigin
