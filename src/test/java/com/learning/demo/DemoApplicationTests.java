@@ -68,4 +68,5 @@ public class DemoApplicationTests {
         bufferedReader.lines().forEach(stringBuilder::append);
         return stringBuilder.toString();
     }
+
 }

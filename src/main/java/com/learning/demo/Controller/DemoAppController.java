@@ -83,4 +83,11 @@ public class DemoAppController {
         }
         return userNames;
     }
+
+    @CrossOrigin
+    @RequestMapping(value = "/deleteUser")
+    public Boolean deleteUser(@RequestHeader("Authorization") String authorization) {
+        return null;
+
+    }
 }
